@@ -62,7 +62,13 @@ namespace PMCG.Messaging.Client
 				this.c_logger.InfoFormat("Open Trying to connect, sequence {0}", _attemptSequence);
 				foreach (var _connectionUri in this.c_connectionUris)
 				{
-					var _connectionFactory = new ConnectionFactory { Uri = _connectionUri, RequestedHeartbeat = (ushort)this.c_heartbeatInterval.TotalSeconds };
+					var _connectionFactory = new ConnectionFactory {
+						Uri = _connectionUri,
+						RequestedHeartbeat = (ushort)this.c_heartbeatInterval.TotalSeconds,
+						UseBackgroundThreadsForIO = false,
+						AutomaticRecoveryEnabled = false,
+						TopologyRecoveryEnabled = false };
+
 					var _connectionInfo = string.Format("Host {0}, port {1}, vhost {2}", _connectionFactory.HostName, _connectionFactory.Port, _connectionFactory.VirtualHost);
 					this.c_logger.InfoFormat("Open Attempting to connect to ({0}), sequence {1}", _connectionInfo, _attemptSequence);
 

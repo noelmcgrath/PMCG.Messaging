@@ -59,7 +59,13 @@ namespace PMCG.Messaging.Client.Interactive
 		public void InstantiateConsumerTasks()
 		{
 			var _connectionUri = Configuration.LocalConnectionUri;
-			this.c_connection = new ConnectionFactory { Uri = _connectionUri }.CreateConnection();
+
+			var _connectionFactory = new ConnectionFactory {
+				Uri = _connectionUri,
+				UseBackgroundThreadsForIO = false,
+				AutomaticRecoveryEnabled = false,
+				TopologyRecoveryEnabled = false };
+			this.c_connection = _connectionFactory.CreateConnection();
 
 			var _busConfigurationBuilder = new BusConfigurationBuilder();
 			_busConfigurationBuilder.ConnectionUris.Add(_connectionUri);

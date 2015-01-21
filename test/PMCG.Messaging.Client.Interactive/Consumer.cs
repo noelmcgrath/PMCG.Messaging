@@ -76,7 +76,13 @@ namespace PMCG.Messaging.Client.Interactive
 		public void InstantiateAndStartConsumer(
 			BusConfiguration busConfiguration)
 		{
-			this.c_connection = new ConnectionFactory { Uri = busConfiguration.ConnectionUris.First() }.CreateConnection();
+			var _connectionFactory = new ConnectionFactory {
+				Uri = busConfiguration.ConnectionUris.First(),
+				UseBackgroundThreadsForIO = false,
+				AutomaticRecoveryEnabled = false,
+				TopologyRecoveryEnabled = false };
+			this.c_connection = _connectionFactory.CreateConnection();
+
 			this.c_cancellationTokenSource = new CancellationTokenSource();
 
 			this.c_consumer = new PMCG.Messaging.Client.Consumer(

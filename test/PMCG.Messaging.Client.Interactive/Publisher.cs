@@ -137,7 +137,13 @@ namespace PMCG.Messaging.Client.Interactive
 
 		public void InstantiateAndStartPublisher()
 		{
-			this.c_connection = new ConnectionFactory { Uri = Configuration.LocalConnectionUri }.CreateConnection();
+			var _connectionFactory = new ConnectionFactory {
+				Uri = Configuration.LocalConnectionUri,
+				UseBackgroundThreadsForIO = false,
+				AutomaticRecoveryEnabled = false,
+				TopologyRecoveryEnabled = false };
+			this.c_connection = _connectionFactory.CreateConnection();
+
 			this.c_publicationQueue = new BlockingCollection<PMCG.Messaging.Client.Publication>();
 			this.c_cancellationTokenSource = new CancellationTokenSource();
 
