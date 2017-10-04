@@ -45,7 +45,7 @@ namespace PMCG.Messaging.Client.UT
 		}
 
 
-		[Test, ExpectedException(typeof(ApplicationException))]
+		[Test]
 		public void Start_Where_Cancellation_Token_Already_Canceled_Results_In_an_Exception()
 		{
 			this.c_cancellationTokenSource.Cancel();
@@ -53,7 +53,8 @@ namespace PMCG.Messaging.Client.UT
 				this.c_connection,
 				this.c_busConfiguration,
 				this.c_cancellationTokenSource.Token);
-			_SUT.Start();
+
+			Assert.That(() => _SUT.Start(), Throws.TypeOf<ApplicationException>());
 		}
 
 

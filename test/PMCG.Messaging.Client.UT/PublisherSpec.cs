@@ -17,7 +17,7 @@ namespace PMCG.Messaging.Client.UT
 	[TestFixture]
 	public class PublisherSpec
 	{
-		[Test, ExpectedException]
+		[Test]
 		public void Start_Where_Cancellation_Token_Is_Cancelled_Results_In_An_Exception()
 		{
 			var _connection = Substitute.For<IConnection>();
@@ -26,7 +26,8 @@ namespace PMCG.Messaging.Client.UT
 
 			var _SUT = new Publisher(_connection, _publicationQueue, _cancellationTokenSource.Token);
 			_cancellationTokenSource.Cancel();
-			_SUT.Start();
+
+			Assert.That(() => _SUT.Start(), Throws.TypeOf<ApplicationException>());
 		}
 
 

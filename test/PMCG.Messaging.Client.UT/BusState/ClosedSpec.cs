@@ -81,7 +81,7 @@ namespace PMCG.Messaging.Client.UT.BusState
 		}
 
 
-		[Test, ExpectedException(typeof(InvalidOperationException))]
+		[Test]
 		public void Close_Results_In_An_Invalid_Operation_Exception()
 		{
 			var _busConfigurationBuilder = new BusConfigurationBuilder();
@@ -96,11 +96,11 @@ namespace PMCG.Messaging.Client.UT.BusState
 				_connectionManager,
 				_context);
 
-			_SUT.Close();
+			Assert.That(() => _SUT.Close(), Throws.TypeOf<InvalidOperationException>());
 		}
 
 
-		[Test, ExpectedException()]
+		[Test]
 		public void Publish_Results_In_An_Exception()
 		{
 			var _busConfigurationBuilder = new BusConfigurationBuilder();
@@ -116,7 +116,7 @@ namespace PMCG.Messaging.Client.UT.BusState
 				_context);
 
 			var _theEvent = new MyEvent(Guid.NewGuid(), null, "Some detail", 1);
-			_SUT.PublishAsync(_theEvent);
+			Assert.That(() => _SUT.PublishAsync(_theEvent), Throws.TypeOf<InvalidOperationException>());
 		}
 	}
 }

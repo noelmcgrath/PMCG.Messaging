@@ -41,7 +41,7 @@ namespace PMCG.Messaging.Client.UT
 		}
 
 	
-		[Test, ExpectedException(typeof(ArgumentNullException))]
+		[Test]
 		public void PublishAsync_Null_Message_Results_In_An_Exception()
 		{
 			var _busConfigurationBuilder = new BusConfigurationBuilder();
@@ -50,8 +50,7 @@ namespace PMCG.Messaging.Client.UT
 
 			var _SUT = new Bus(_busConfirguration);
 			_SUT.Connect();
-
-			_SUT.PublishAsync<MyEvent>(null);
+			Assert.That(() => _SUT.PublishAsync<MyEvent>(null), Throws.TypeOf<ArgumentNullException>());
 		}
 
 

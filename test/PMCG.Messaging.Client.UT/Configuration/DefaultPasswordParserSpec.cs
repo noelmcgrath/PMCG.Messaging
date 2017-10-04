@@ -40,10 +40,10 @@ namespace PMCG.Messaging.Client.UT.Configuration
 		}
 
 
-		[Test, ExpectedException(typeof(ApplicationException))]
+		[Test]
 		public void Parse_Where_No_Entry_For_This_Machine_Exists_Results_In_An_Exception()
 		{
-			this.c_SUT.Parse("Machine1:Pwd1,Machine2:OtherPwd");
+			Assert.That(() => this.c_SUT.Parse("Machine1:Pwd1,Machine2:OtherPwd"), Throws.TypeOf<ApplicationException>());
 		}
 	}
 }

@@ -12,17 +12,17 @@ namespace PMCG.Messaging.Client.UT.Configuration
 		private ConnectionStringSettingsParser c_SUT = new ConnectionStringSettingsParser();
 
 
-		[Test, ExpectedException]
+		[Test]
 		public void Parse_Where_Null_String_Results_In_An_Exception()
 		{
-			this.c_SUT.Parse(null);
+			Assert.That(() => this.c_SUT.Parse(null), Throws.TypeOf<ArgumentException>());
 		}
 
 
-		[Test, ExpectedException]
+		[Test]
 		public void Parse_Where_Empty_String_Results_In_An_Exception()
 		{
-			this.c_SUT.Parse(" ");
+			Assert.That(() => this.c_SUT.Parse(" "), Throws.TypeOf<ArgumentException>());
 		}
 
 

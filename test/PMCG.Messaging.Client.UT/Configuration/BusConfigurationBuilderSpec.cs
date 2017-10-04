@@ -39,12 +39,13 @@ namespace PMCG.Messaging.Client.UT.Configuration
 		}
 
 	
-		[Test, ExpectedException]
+		[Test]
 		public void RegisterPublication_Where_Command_Already_Registered_And_Attempting_To_Register_Second_Command_Publication_Results_In_An_Exception()
 		{
-			this.c_SUT
+			Assert.That(() => this.c_SUT
 				.RegisterPublication<MyCommand>("AnExchange1")
-				.RegisterPublication<MyCommand>("AnExchange2");
+				.RegisterPublication<MyCommand>("AnExchange2"),
+				Throws.TypeOf<ApplicationException>());
 		}
 	}
 }

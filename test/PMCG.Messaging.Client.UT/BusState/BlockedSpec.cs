@@ -32,7 +32,7 @@ namespace PMCG.Messaging.Client.UT.BusState
 		}
 
 
-		[Test, ExpectedException(typeof(InvalidOperationException))]
+		[Test]
 		public void Connect_Results_In_An_Invalid_Operation_Exception()
 		{
 			var _busConfigurationBuilder = new BusConfigurationBuilder();
@@ -46,8 +46,8 @@ namespace PMCG.Messaging.Client.UT.BusState
 				_busConfirguration,
 				_connectionManager,
 				_context);
-
-			_SUT.Connect();
+			
+			Assert.That(() => _SUT.Connect(), Throws.TypeOf<InvalidOperationException>());
 		}
 
 
